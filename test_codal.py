@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-تست ساده برای کلاس تحلیلگر کدال
 Simple test for Codal Data Analyzer
 """
 
@@ -9,56 +8,56 @@ from codal_data_analyzer import CodalDataAnalyzer
 import sys
 
 def test_analyzer():
-    """تست عملکرد تحلیلگر"""
-    print("🧪 شروع تست تحلیلگر کدال")
+    """Test analyzer functionality"""
+    print("Starting Codal Analyzer Test")
     print("=" * 40)
     
     try:
-        # ایجاد نمونه تحلیلگر
+        # Create analyzer instance
         analyzer = CodalDataAnalyzer()
-        print("✅ تحلیلگر ایجاد شد")
+        print("Analyzer created successfully")
         
-        # تست دریافت لیست شرکت‌ها
-        print("\n📊 تست دریافت لیست شرکت‌ها...")
+        # Test company list retrieval
+        print("\nTesting company list retrieval...")
         companies = analyzer.get_company_list()
         
         if companies is not None:
-            print(f"✅ لیست شرکت‌ها دریافت شد: {len(companies)} شرکت")
+            print(f"Company list received: {len(companies)} companies")
         else:
-            print("⚠️ لیست شرکت‌ها دریافت نشد (احتمالاً محدودیت API)")
+            print("Company list not received (API limitation)")
         
-        # تست دریافت گزارش‌های نمونه
-        print("\n📈 تست دریافت گزارش‌های نمونه...")
-        sample_reports = analyzer.get_company_reports("فولاد", days_back=7)
+        # Test sample reports retrieval
+        print("\nTesting sample reports retrieval...")
+        sample_reports = analyzer.get_company_reports("Foolad", days_back=7)
         
         if sample_reports is not None:
-            print(f"✅ گزارش‌های نمونه دریافت شد: {len(sample_reports)} گزارش")
+            print(f"Sample reports received: {len(sample_reports)} reports")
             
-            # تست تمیزسازی
-            print("\n🧹 تست تمیزسازی داده‌ها...")
+            # Test data cleaning
+            print("\nTesting data cleaning...")
             clean_data = analyzer.clean_financial_data(sample_reports)
             
             if clean_data is not None:
-                print(f"✅ داده‌ها تمیز شدند: {len(clean_data)} سطر")
+                print(f"Data cleaned successfully: {len(clean_data)} rows")
                 
-                # تست استخراج فیچر
-                print("\n🔧 تست استخراج فیچرها...")
+                # Test feature extraction
+                print("\nTesting feature extraction...")
                 features = analyzer.extract_financial_features(clean_data)
                 
                 if features is not None:
-                    print(f"✅ فیچرها استخراج شدند: {len(features.columns)} فیچر")
+                    print(f"Features extracted: {len(features.columns)} features")
                 else:
-                    print("⚠️ فیچری استخراج نشد")
+                    print("No features extracted")
             else:
-                print("⚠️ داده‌ها تمیز نشدند")
+                print("Data cleaning failed")
         else:
-            print("⚠️ گزارش نمونه دریافت نشد")
+            print("Sample reports not received")
         
-        print("\n🎉 تست کامل شد!")
+        print("\nTest completed successfully!")
         return True
         
     except Exception as e:
-        print(f"❌ خطا در تست: {str(e)}")
+        print(f"Error in test: {str(e)}")
         return False
 
 if __name__ == "__main__":

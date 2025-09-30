@@ -29,8 +29,8 @@ class CodalDataAnalyzer:
         self.data = {}
         
     def get_company_list(self):
-        """دریافت لیست شرکت‌های پذیرفته شده در بورس"""
-        print("📊 در حال دریافت لیست شرکت‌ها...")
+        """Get list of companies listed on the stock exchange"""
+        print("Retrieving company list...")
         
         # ایجاد داده‌های نمونه برای تست
         sample_companies = [
@@ -48,20 +48,20 @@ class CodalDataAnalyzer:
             
             if response.status_code == 200:
                 companies = response.json()
-                print(f"✅ {len(companies)} شرکت یافت شد")
+                print(f"Found {len(companies)} companies")
                 return pd.DataFrame(companies)
             else:
-                print(f"⚠️ API در دسترس نیست، از داده‌های نمونه استفاده می‌کنیم")
+                print("API not available, using sample data")
                 return pd.DataFrame(sample_companies)
                 
         except Exception as e:
-            print(f"⚠️ اتصال به کدال امکان‌پذیر نیست: {str(e)}")
-            print("📊 استفاده از داده‌های نمونه برای تست...")
+            print(f"Cannot connect to Codal: {str(e)}")
+            print("Using sample data for testing...")
             return pd.DataFrame(sample_companies)
     
     def get_company_reports(self, company_symbol, days_back=30):
-        """دریافت گزارش‌های مالی یک شرکت"""
-        print(f"📈 در حال دریافت گزارش‌های {company_symbol}...")
+        """Get financial reports for a company"""
+        print(f"Retrieving reports for {company_symbol}...")
         
         # ایجاد داده‌های نمونه برای تست
         import random
@@ -92,23 +92,23 @@ class CodalDataAnalyzer:
             
             if response.status_code == 200:
                 reports = response.json()
-                print(f"✅ {len(reports)} گزارش یافت شد")
+                print(f"Found {len(reports)} reports")
                 return pd.DataFrame(reports)
             else:
-                print(f"⚠️ API در دسترس نیست، از داده‌های نمونه استفاده می‌کنیم")
+                print("API not available, using sample data")
                 return pd.DataFrame(sample_reports)
                 
         except Exception as e:
-            print(f"⚠️ اتصال به کدال امکان‌پذیر نیست: {str(e)}")
-            print("📊 استفاده از داده‌های نمونه برای تست...")
+            print(f"Cannot connect to Codal: {str(e)}")
+            print("Using sample data for testing...")
             return pd.DataFrame(sample_reports)
     
     def clean_financial_data(self, df):
-        """تمیزسازی داده‌های مالی"""
+        """Clean financial data"""
         if df is None or df.empty:
             return None
             
-        print("🧹 در حال تمیزسازی داده‌ها...")
+        print("Cleaning data...")
         
         # حذف سطرهای تکراری
         df = df.drop_duplicates()
@@ -127,15 +127,15 @@ class CodalDataAnalyzer:
         # حذف سطرهایی که اطلاعات کلیدی ندارند
         df = df.dropna(subset=['symbol'] if 'symbol' in df.columns else [])
         
-        print(f"✅ داده‌ها تمیز شدند. {len(df)} سطر باقی ماند")
+        print(f"Data cleaned successfully. {len(df)} rows remaining")
         return df
     
     def extract_financial_features(self, df):
-        """استخراج فیچرهای مالی مهم"""
+        """Extract important financial features"""
         if df is None or df.empty:
             return None
             
-        print("🔧 در حال استخراج فیچرها...")
+        print("Extracting features...")
         
         features = pd.DataFrame()
         
@@ -163,15 +163,15 @@ class CodalDataAnalyzer:
             features['month'] = df['date'].dt.month
             features['quarter'] = df['date'].dt.quarter
         
-        print(f"✅ {len(features.columns)} فیچر استخراج شد")
+        print(f"Extracted {len(features.columns)} features")
         return features
     
     def analyze_market_trends(self, df):
-        """تحلیل روندهای بازار"""
+        """Analyze market trends"""
         if df is None or df.empty:
             return None
             
-        print("📊 در حال تحلیل روندهای بازار...")
+        print("Analyzing market trends...")
         
         analysis = {}
         
@@ -192,7 +192,7 @@ class CodalDataAnalyzer:
         return analysis
     
     def save_results(self, data, filename):
-        """ذخیره نتایج"""
+        """Save results"""
         try:
             if isinstance(data, pd.DataFrame):
                 data.to_csv(f"{filename}.csv", index=False, encoding='utf-8')
@@ -200,14 +200,14 @@ class CodalDataAnalyzer:
                 with open(f"{filename}.json", 'w', encoding='utf-8') as f:
                     json.dump(data, f, ensure_ascii=False, indent=2, default=str)
             
-            print(f"💾 نتایج در فایل {filename} ذخیره شد")
+            print(f"Results saved to {filename}")
             
         except Exception as e:
-            print(f"❌ خطا در ذخیره فایل: {str(e)}")
+            print(f"Error saving file: {str(e)}")
 
 def main():
-    """تابع اصلی"""
-    print("🚀 شروع تحلیل داده‌های کدال ایران")
+    """Main function"""
+    print("Starting Codal Data Analysis")
     print("=" * 50)
     
     # ایجاد نمونه تحلیلگر
@@ -248,7 +248,7 @@ def main():
             if trends:
                 analyzer.save_results(trends, "market_trends")
     
-    print("✅ تحلیل کامل شد!")
+    print("Analysis completed successfully!")
 
 if __name__ == "__main__":
     main()
