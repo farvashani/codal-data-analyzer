@@ -2,45 +2,45 @@
 # 🚀 راه‌اندازی پروژه تحلیلگر کدال ایران
 # Setup script for Codal Data Analyzer
 
-echo "🚀 راه‌اندازی پروژه تحلیلگر کدال ایران"
-echo "========================================"
+echo "Setting up Codal Data Analyzer Project"
+echo "====================================="
 
-# بررسی وجود Python
+# Check Python installation
 if ! command -v python3 &> /dev/null; then
-    echo "❌ Python3 نصب نیست. لطفاً ابتدا Python3 را نصب کنید."
+    echo "ERROR: Python3 is not installed. Please install Python3 first."
     exit 1
 fi
 
-echo "✅ Python3 موجود است: $(python3 --version)"
+echo "Python3 found: $(python3 --version)"
 
-# ایجاد محیط مجازی
+# Create virtual environment
 if [ ! -d "codal_env" ]; then
-    echo "📦 ایجاد محیط مجازی..."
+    echo "Creating virtual environment..."
     python3 -m venv codal_env
-    echo "✅ محیط مجازی ایجاد شد"
+    echo "Virtual environment created"
 else
-    echo "✅ محیط مجازی موجود است"
+    echo "Virtual environment already exists"
 fi
 
-# فعال‌سازی محیط مجازی
-echo "🔧 فعال‌سازی محیط مجازی..."
+# Activate virtual environment
+echo "Activating virtual environment..."
 source codal_env/bin/activate
 
-# نصب کتابخانه‌ها
-echo "📚 نصب کتابخانه‌های مورد نیاز..."
+# Install dependencies
+echo "Installing required packages..."
 pip install --upgrade pip
 pip install -r requirements.txt
 
 echo ""
-echo "🎉 راه‌اندازی کامل شد!"
+echo "Setup completed successfully!"
 echo ""
-echo "📋 دستورات مفید:"
-echo "  فعال‌سازی محیط: source codal_env/bin/activate"
-echo "  اجرای تست:      python test_codal.py"
-echo "  اجرای تحلیلگر:  python codal_data_analyzer.py"
-echo "  نوت‌بوک:        jupyter notebook codal_analysis.ipynb"
+echo "Useful commands:"
+echo "  Activate env:   source codal_env/bin/activate"
+echo "  Run tests:      python test_codal.py"
+echo "  Run analyzer:   python codal_data_analyzer.py"
+echo "  Jupyter:        jupyter notebook codal_analysis.ipynb"
 echo ""
-echo "💡 برای شروع کار:"
+echo "To get started:"
 echo "  1. source codal_env/bin/activate"
 echo "  2. python test_codal.py"
 echo ""
